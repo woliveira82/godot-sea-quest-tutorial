@@ -2,6 +2,7 @@ extends AnimatedSprite2D
 
 var velocity = Vector2.ZERO
 var SPEED = Vector2(125, 90)
+const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 
 
 func _process(delta):
@@ -15,6 +16,10 @@ func _process(delta):
 	elif velocity.x < 0:
 		flip_h = true
 
+	if Input.is_action_just_pressed("shoot"):
+		var bullet_instance = Bullet.instantiate()
+		bullet_instance.global_position = global_position
+		get_tree().current_scene.add_child(bullet_instance)
 
 func _physics_process(delta):
 	global_position += velocity * SPEED * delta

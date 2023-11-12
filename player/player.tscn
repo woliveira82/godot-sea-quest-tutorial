@@ -40,8 +40,7 @@ animations = [{
 }]
 
 [node name="Player" type="AnimatedSprite2D"]
-position = Vector2(132, 76)
 sprite_frames = SubResource("SpriteFrames_e7on6")
 autoplay = "default"
-frame_progress = 0.96756
+frame_progress = 0.719438
 script = ExtResource("2_4xxh5")
