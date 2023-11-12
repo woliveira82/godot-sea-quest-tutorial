@@ -9,6 +9,11 @@ func _process(delta):
 	velocity.y = Input.get_axis("move_up", "move_down")
 	
 	velocity = velocity.normalized()
+	
+	if velocity.x > 0:
+		flip_h = false
+	elif velocity.x < 0:
+		flip_h = true
 
 
 func _physics_process(delta):

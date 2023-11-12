@@ -43,5 +43,5 @@ animations = [{
 position = Vector2(132, 76)
 sprite_frames = SubResource("SpriteFrames_e7on6")
 autoplay = "default"
-frame_progress = 0.558126
+frame_progress = 0.96756
 script = ExtResource("2_4xxh5")
