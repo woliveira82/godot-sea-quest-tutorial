@@ -42,5 +42,12 @@ animations = [{
 [node name="Player" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_e7on6")
 autoplay = "default"
-frame_progress = 0.719438
+frame_progress = 0.802025
+offset = Vector2(-1, -2)
 script = ExtResource("2_4xxh5")
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
