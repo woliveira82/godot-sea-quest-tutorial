@@ -1,13 +1,15 @@
-extends AnimatedSprite2D
+extends Area2D
 
 var velocity = Vector2.RIGHT
 
 const SPEED = 300
 
+@onready var sprite = $AnimatedSprite2D
+
 
 func flip_direction():
 	velocity = -velocity
-	flip_h = not flip_h
+	sprite.flip_h = not sprite.flip_h
 
 
 func _ready():
@@ -19,5 +21,5 @@ func _physics_process(delta):
 	global_position += velocity * SPEED * delta 
 
 
-func _screen_exited():
+func _on_screen_exited():
 	queue_free()
