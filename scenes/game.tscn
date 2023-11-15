@@ -1,15 +1,37 @@
 [gd_scene load_steps=3 format=3 uid="uid://063v2fi11y4v"]
 
 [ext_resource type="PackedScene" uid="uid://kwmr3e03oii" path="res://player/player.tscn" id="1_tk3if"]
-[ext_resource type="PackedScene" uid="uid://cyn7k6sjt606q" path="res://enemies/shark/shark.tscn" id="2_rebqo"]
+[ext_resource type="PackedScene" uid="uid://dm1ck8a8mls4j" path="res://enemies/spawner/enemy_spawner.tscn" id="3_hm27r"]
 
 [node name="Game" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("1_tk3if")]
 position = Vector2(127, 68)
 
-[node name="Shark" parent="." instance=ExtResource("2_rebqo")]
-position = Vector2(11, 109)
+[node name="EnemySpawner" parent="." instance=ExtResource("3_hm27r")]
+position = Vector2(0, 30)
 
-[node name="Shark2" parent="." instance=ExtResource("2_rebqo")]
-position = Vector2(14, 104)
+[node name="EnemySpawner2" parent="." instance=ExtResource("3_hm27r")]
+position = Vector2(256, 30)
+facing_left = true
+
+[node name="EnemySpawner3" parent="." instance=ExtResource("3_hm27r")]
+position = Vector2(0, 60)
+
+[node name="EnemySpawner4" parent="." instance=ExtResource("3_hm27r")]
+position = Vector2(256, 60)
+facing_left = true
+
+[node name="EnemySpawner5" parent="." instance=ExtResource("3_hm27r")]
+position = Vector2(0, 90)
+
+[node name="EnemySpawner6" parent="." instance=ExtResource("3_hm27r")]
+position = Vector2(256, 90)
+facing_left = true
+
+[node name="EnemySpawner7" parent="." instance=ExtResource("3_hm27r")]
+position = Vector2(0, 120)
+
+[node name="EnemySpawner8" parent="." instance=ExtResource("3_hm27r")]
+position = Vector2(256, 120)
+facing_left = true

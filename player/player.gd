@@ -10,7 +10,7 @@ const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 @onready var reload_timer = $ReloadTimer
 
 
-func _process(delta):
+func _process(_delta):
 	velocity.x = Input.get_axis("move_left", "move_right")
 	velocity.y = Input.get_axis("move_up", "move_down")
 	
