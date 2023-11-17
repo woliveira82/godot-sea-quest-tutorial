@@ -1,21 +1,36 @@
-extends Marker2D
-
-@export var facing_left = false
+extends Node2D
 
 const Shark = preload("res://enemies/shark/shark.tscn")
 
-@onready var timer = $Timer
+var used_spawn_points = []
 
-
-func _ready():
-	timer.start(randf_range(2.5, 5.0))
+@onready var left = $Left
+@onready var right = $Right
 
 
 func _on_timer_timeout():
-	var shark_instance = Shark.instantiate()
-	get_tree().current_scene.add_child(shark_instance)
-	shark_instance.global_position = global_position
-	if facing_left:
-		shark_instance.flip_direction()
+	for i in range(4):
+		spawn_enemy()
+
+
+func spawn_enemy():
+	var available_spawn_points = []
 	
-	timer.wait_time = randf_range(2.5, 5.0)
+	for i in range(4):
+		if !used_spawn_points.has(i):
+			available_spawn_points.append(i)
+	
+	var selected_side_node = left
+	var spawn_right = bool(randi_range(0, 1))
+	if spawn_right:
+		selected_side_node = right
+	
+	var selected_spawn_point = selected_side_node.get_node(str(rand_spawn_point_number))
+	var spawn_position = selected_spawn_point.global_position
+	
+	var shark_instance = Shark.instantiate()
+	shark_instance.global_position = spawn_position
+	get_tree().current_scene.add_child(shark_instance)
+	
+	if spawn_right:
+		shark_instance.flip_direction()
