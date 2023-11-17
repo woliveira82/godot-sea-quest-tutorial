@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://063v2fi11y4v"]
+[gd_scene load_steps=4 format=3 uid="uid://063v2fi11y4v"]
 
 [ext_resource type="PackedScene" uid="uid://kwmr3e03oii" path="res://player/player.tscn" id="1_tk3if"]
 [ext_resource type="PackedScene" uid="uid://m0ihhwtpoxd1" path="res://enemies/spawner/enemy_spawner.tscn" id="3_hm27r"]
+[ext_resource type="PackedScene" uid="uid://wd2pm37vxpcs" path="res://user_interface/people-count/people_count.tscn" id="3_r58k6"]
 
 [node name="Game" type="Node"]
 
@@ -10,3 +11,6 @@ position = Vector2(127, 68)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_hm27r")]
 position = Vector2(0, -50)
+
+[node name="PeopleCount" parent="." instance=ExtResource("3_r58k6")]
+position = Vector2(12, 12)

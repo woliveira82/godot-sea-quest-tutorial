@@ -18,4 +18,6 @@ func flip_direction():
 
 func _on_area_entered(area):
 	if area.is_in_group("Player"):
+		Global.saved_people_count += 1
+		GameEvents.emit_signal("update_collected_people_count")
 		queue_free()
