@@ -33,8 +33,13 @@ position = Vector2(290, 141)
 [node name="4" type="Marker2D" parent="Right"]
 position = Vector2(290, 173)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="EnemySpawnerTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="PersonSpawnerTimer" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="timeout" from="EnemySpawnerTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PersonSpawnerTimer" to="." method="_on_person_spawner_timer_timeout"]
