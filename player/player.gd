@@ -6,8 +6,17 @@ var can_shoot = true
 var state = "default"
 
 const SPEED = Vector2(125, 90)
+
 const OXYGEN_DECREASE_SPEED = 2.5
 const OXYGEN_INCREASE_SPEED = 60.0
+const OXYGEN_REFUEL_Y_POSITION = 38
+const OXYGEN_REFUEL_MOVE_SPEED = 70
+
+const MAX_X_POSITION = 248
+const MIN_X_POSITION = 13
+const MAX_Y_POSITION = 205
+const MIN_Y_POSITION = OXYGEN_REFUEL_Y_POSITION
+
 const BULLET_OFFSET = 7
 const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 
@@ -28,13 +37,17 @@ func _process(_delta):
 		lose_oxygen()
 	elif state == "less_people_refuel":
 		oxygen_refuel()
+		move_to_shore_line()
 	elif state == "people_refuel":
 		oxygen_refuel()
+		move_to_shore_line()
 
 
 func _physics_process(_delta):
 	if state == "default":
 		movement()
+	
+	clamp_position()
 
 
 func process_movement_input():
@@ -78,8 +91,18 @@ func oxygen_refuel():
 		state = "default"
 
 
+func move_to_shore_line():
+	var move_speed = OXYGEN_REFUEL_MOVE_SPEED * get_process_delta_time()
+	global_position.y = move_toward(global_position.y, OXYGEN_REFUEL_Y_POSITION, move_speed)
+
+
 func movement():
 	global_position += velocity * SPEED * get_physics_process_delta_time()
+
+
+func clamp_position():
+	global_position.x = clamp(global_position.x, MIN_X_POSITION, MAX_X_POSITION)
+	global_position.y = clamp(global_position.y, MIN_Y_POSITION, MAX_Y_POSITION)
 
 
 func _on_reload_timer_timeout():

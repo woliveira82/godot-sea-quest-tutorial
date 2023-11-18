@@ -46,10 +46,9 @@ subdivide_depth = 1
 [node name="Game" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("1_tk3if")]
-position = Vector2(127, 68)
+position = Vector2(127, 79)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_hm27r")]
-position = Vector2(0, -50)
 
 [node name="OxygenZone" type="Area2D" parent="."]
 position = Vector2(128, 43)
@@ -59,12 +58,14 @@ script = ExtResource("3_5rn45")
 shape = SubResource("RectangleShape2D_qlwhr")
 
 [node name="Environment" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Environment"]
 material = SubResource("ShaderMaterial_c022g")
 position = Vector2(127, 39)
 scale = Vector2(0.7, 1)
 mesh = SubResource("QuadMesh_b181y")
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance2D2" type="MeshInstance2D" parent="Environment"]
 modulate = Color(0.0470588, 0.901961, 0.94902, 1)
@@ -73,6 +74,7 @@ material = SubResource("ShaderMaterial_c022g")
 position = Vector2(125, 55)
 scale = Vector2(0.7, 1)
 mesh = SubResource("QuadMesh_y2taf")
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance2D3" type="MeshInstance2D" parent="Environment"]
 modulate = Color(0, 0.596078, 0.858824, 1)
@@ -81,6 +83,7 @@ material = SubResource("ShaderMaterial_c022g")
 position = Vector2(125, 65)
 scale = Vector2(0.7, 1)
 mesh = SubResource("QuadMesh_j4dft")
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance2D4" type="MeshInstance2D" parent="Environment"]
 modulate = Color(0.117647, 0.341176, 0.611765, 1)
@@ -89,6 +92,7 @@ material = SubResource("ShaderMaterial_c022g")
 position = Vector2(125, 107)
 scale = Vector2(0.7, 1)
 mesh = SubResource("QuadMesh_ydpbd")
+metadata/_edit_lock_ = true
 
 [node name="MeshInstance2D5" type="MeshInstance2D" parent="Environment"]
 modulate = Color(0.12549, 0.207843, 0.384314, 1)
@@ -97,6 +101,7 @@ material = SubResource("ShaderMaterial_c022g")
 position = Vector2(125, 178)
 scale = Vector2(0.7, 1)
 mesh = SubResource("QuadMesh_lbi7s")
+metadata/_edit_lock_ = true
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 
