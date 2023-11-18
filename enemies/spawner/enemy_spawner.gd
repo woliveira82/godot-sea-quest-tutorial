@@ -7,6 +7,12 @@ var used_spawn_points = []
 
 @onready var left = $Left
 @onready var right = $Right
+@onready var enemy_spawner_timer = $EnemySpawnerTimer
+@onready var person_spawner_timer = $PersonSpawnerTimer
+
+
+func _ready():
+	GameEvents.connect("pause_enemies", Callable(self, "_pause"))
 
 
 func _on_timer_timeout():
@@ -61,3 +67,12 @@ func _on_person_spawner_timer_timeout():
 	var spawn_position = selected_spawn_point.global_position
 	
 	person_instance.global_position = spawn_position
+
+
+func _pause(pause):
+	if pause:
+		enemy_spawner_timer.stop()
+		person_spawner_timer.stop()
+	else:
+		enemy_spawner_timer.start()
+		person_spawner_timer.start()

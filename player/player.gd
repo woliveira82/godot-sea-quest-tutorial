@@ -91,16 +91,23 @@ func oxygen_refuel():
 	Global.oxygen_level += OXYGEN_INCREASE_SPEED * get_process_delta_time()
 	if Global.oxygen_level > 99:
 		state = "default"
+		GameEvents.emit_signal("pause_enemies", false)
 
 
 func death_when_oxygen_reaches_zero():
 	if Global.oxygen_level <= 0:
-		GameEvents.emit_signal("game_over")
+		death()
 
 
 func death_when_refueling_while_full():
 	if Global.oxygen_level > 80:
-		GameEvents.emit_signal("game_over")
+		death()
+
+
+func death():
+	GameEvents.emit_signal("game_over")
+	GameEvents.emit_signal("pause_enemies", true)
+
 
 func move_to_shore_line():
 	var move_speed = OXYGEN_REFUEL_MOVE_SPEED * get_process_delta_time()
@@ -130,12 +137,14 @@ func _full_crew_oxygen_refuel():
 	state = "people_refuel"
 	decrease_people_timer.start()
 	death_when_refueling_while_full()
+	GameEvents.emit_signal("pause_enemies", true)
 
 
 func _less_people_oxygen_refuel():
 	state = "oxygen_refuel"
 	remove_one_person()
 	death_when_refueling_while_full()
+	GameEvents.emit_signal("pause_enemies", true)
 
 
 func _on_decrease_people_timer_timeout():
