@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://063v2fi11y4v"]
+[gd_scene load_steps=17 format=3 uid="uid://063v2fi11y4v"]
 
 [ext_resource type="PackedScene" uid="uid://kwmr3e03oii" path="res://player/player.tscn" id="1_tk3if"]
 [ext_resource type="Script" path="res://scenes/game/oxygen_zone.gd" id="3_5rn45"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c2w5jqxd51w6g" path="res://user_interface/oxygen-bar/oxygen_bar_under.png" id="4_qrrno"]
 [ext_resource type="Texture2D" uid="uid://bt81hyw8nivgp" path="res://user_interface/oxygen-bar/oxygen_bar_progress.png" id="5_4iotl"]
 [ext_resource type="Script" path="res://user_interface/oxygen-bar/texture_progress_bar.gd" id="6_swfxc"]
+[ext_resource type="FontFile" uid="uid://dwiqonohn7stj" path="res://user_interface/fonts/font_1.ttf" id="9_vd5l2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlwhr"]
 size = Vector2(262, 20)
@@ -126,5 +127,26 @@ stretch_margin_right = 4
 texture_under = ExtResource("4_qrrno")
 texture_progress = ExtResource("5_4iotl")
 script = ExtResource("6_swfxc")
+
+[node name="Label" type="Label" parent="UserInterface/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -12.5
+offset_right = 24.0
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.12549, 0.0823529, 0.2, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("9_vd5l2")
+theme_override_font_sizes/font_size = 8
+text = "Oxygen"
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [connection signal="area_entered" from="OxygenZone" to="OxygenZone" method="_on_area_entered"]
