@@ -13,3 +13,5 @@ func _ready():
 func _update():
 	if Global.saved_people_count >= order_number:
 		texture = FULL_TEXTURE
+	else:
+		texture = EMPTY_TEXTURE
