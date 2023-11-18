@@ -1,6 +1,8 @@
 extends Camera2D
 
 const FOLLOW_SPEED = 9
+const MIN_HEIGHT = 70
+const MAX_HEIGHT = 145
 
 var target_position = global_position
 
@@ -14,4 +16,4 @@ func _physics_process(delta):
 
 
 func _follow_player(player_y):
-	target_position.y = clamp(player_y, 70, 145)
+	target_position.y = clamp(player_y, MIN_HEIGHT, MAX_HEIGHT)
