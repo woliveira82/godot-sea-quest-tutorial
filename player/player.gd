@@ -3,7 +3,8 @@ extends Area2D
 var velocity = Vector2.ZERO
 var can_shoot = true
 
-var state = "default"
+enum states {DEFAULT, OXYGEN_REFUEL, PEOPLE_REFUEL}
+var state = states.DEFAULT
 
 const SPEED = Vector2(125, 90)
 
@@ -32,21 +33,21 @@ func _ready():
 
 
 func _process(_delta):
-	if state == "default":
+	if state == states.DEFAULT:
 		process_movement_input()
 		direction_follows_input()
 		process_shooting()
 		lose_oxygen()
 		death_when_oxygen_reaches_zero()
-	elif state == "oxygen_refuel":
+	elif state == states.OXYGEN_REFUEL:
 		oxygen_refuel()
 		move_to_shore_line()
-	elif state == "people_refuel":
+	elif state == states.PEOPLE_REFUEL:
 		move_to_shore_line()
 
 
 func _physics_process(_delta):
-	if state == "default":
+	if state == states.DEFAULT:
 		movement()
 	
 	clamp_position()
@@ -90,7 +91,7 @@ func lose_oxygen():
 func oxygen_refuel():
 	Global.oxygen_level += OXYGEN_INCREASE_SPEED * get_process_delta_time()
 	if Global.oxygen_level > 99:
-		state = "default"
+		state = states.DEFAULT
 		GameEvents.emit_signal("pause_enemies", false)
 
 
@@ -134,14 +135,14 @@ func remove_one_person():
 
 
 func _full_crew_oxygen_refuel():
-	state = "people_refuel"
+	state = states.PEOPLE_REFUEL
 	decrease_people_timer.start()
 	death_when_refueling_while_full()
 	GameEvents.emit_signal("pause_enemies", true)
 
 
 func _less_people_oxygen_refuel():
-	state = "oxygen_refuel"
+	state = states.OXYGEN_REFUEL
 	remove_one_person()
 	death_when_refueling_while_full()
 	GameEvents.emit_signal("pause_enemies", true)
@@ -150,7 +151,7 @@ func _less_people_oxygen_refuel():
 func _on_decrease_people_timer_timeout():
 	remove_one_person()
 	if Global.saved_people_count <= 0:
-		state = "oxygen_refuel"
+		state = states.OXYGEN_REFUEL
 		decrease_people_timer.stop()
 
 

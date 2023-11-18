@@ -7,7 +7,10 @@ const MOVEMENT_AMPLITUDE = 0.5
 
 var velocity = Vector2.RIGHT
 var random_offset = randf_range(0.0, 10.0)
-var current_state = "default"
+
+enum states {DEFAULT, PAUSED}
+var current_state = states.DEFAULT
+
 var point_value = 25
 
 @onready var sprite = $AnimatedSprite2D
@@ -16,7 +19,7 @@ var point_value = 25
 func _ready():
 	GameEvents.connect("pause_enemies", Callable(self, "_pause"))
 func _physics_process(delta):
-	if current_state == "default":
+	if current_state == states.DEFAULT:
 		velocity.y = sin(global_position.x * MOVEMENT_FREQUENCY + random_offset) * MOVEMENT_AMPLITUDE
 		global_position += velocity * SPEED * delta
 
@@ -44,6 +47,6 @@ func _on_area_entered(area):
 
 func _pause(pause):
 	if pause:
-		current_state = "pause"
+		current_state = states.PAUSED
 	else:
-		current_state = "default"
+		current_state = states.DEFAULT
