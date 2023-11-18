@@ -12,5 +12,7 @@ position = Vector2(127, 68)
 [node name="EnemySpawner" parent="." instance=ExtResource("3_hm27r")]
 position = Vector2(0, -50)
 
-[node name="PeopleCount" parent="." instance=ExtResource("3_r58k6")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PeopleCount" parent="CanvasLayer" instance=ExtResource("3_r58k6")]
 position = Vector2(12, 12)
