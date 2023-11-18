@@ -1,5 +1,5 @@
 extends TextureProgressBar
 
 
-func _process(delta):
+func _process(_delta):
 	value = Global.oxygen_level

@@ -3,8 +3,11 @@ extends Area2D
 var velocity = Vector2.ZERO
 var can_shoot = true
 
+var state = "default"
+
 const SPEED = Vector2(125, 90)
 const OXYGEN_DECREASE_SPEED = 2.5
+const OXYGEN_INCREASE_SPEED = 60.0
 const BULLET_OFFSET = 7
 const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 
@@ -12,11 +15,26 @@ const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 @onready var sprite = $AnimatedSprite2D
 
 
+func _ready():
+	GameEvents.connect("full_crew_oxygen_refuel", Callable(self, "_full_crew_oxygen_refuel"))
+	GameEvents.connect("less_people_oxygen_refuel", Callable(self, "_less_people_oxygen_refuel"))
+
+
 func _process(_delta):
-	process_movement_input()
-	direction_follows_input()
-	process_shooting()
-	lose_oxygen()
+	if state == "default":
+		process_movement_input()
+		direction_follows_input()
+		process_shooting()
+		lose_oxygen()
+	elif state == "less_people_refuel":
+		oxygen_refuel()
+	elif state == "people_refuel":
+		oxygen_refuel()
+
+
+func _physics_process(_delta):
+	if state == "default":
+		movement()
 
 
 func process_movement_input():
@@ -49,16 +67,28 @@ func process_shooting():
 
 
 func lose_oxygen():
-	Global.oxygen_level -= OXYGEN_DECREASE_SPEED * get_process_delta_time()
+	var orygin_decrease_delta = OXYGEN_DECREASE_SPEED * get_process_delta_time()
+	Global.oxygen_level = move_toward(Global.oxygen_level, 0.0, orygin_decrease_delta)
+
+
+func oxygen_refuel():
+	Global.oxygen_level += OXYGEN_INCREASE_SPEED * get_process_delta_time()
+	
+	if Global.oxygen_level > 99:
+		state = "default"
 
 
 func movement():
 	global_position += velocity * SPEED * get_physics_process_delta_time()
 
 
-func _physics_process(_delta):
-	movement()
-
-
 func _on_reload_timer_timeout():
 	can_shoot = true
+
+
+func _full_crew_oxygen_refuel():
+	state = "people_refuel"
+
+
+func _less_people_oxygen_refuel():
+	state = "less_people_refuel"
