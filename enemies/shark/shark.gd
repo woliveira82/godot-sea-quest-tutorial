@@ -34,3 +34,6 @@ func _on_area_entered(area):
 		GameEvents.emit_signal("update_points")
 		area.queue_free()
 		queue_free()
+	
+	if area.is_in_group("Player"):
+		GameEvents.emit_signal("game_over")
