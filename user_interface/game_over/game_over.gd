@@ -1,8 +1,9 @@
 extends Control
 
-
 @onready var current_scene_label = $CurrentScoreLabel
+@onready var high_score_label = $HighScoreLabel
 @onready var game_over_delay = $GameOverDelay
+
 
 func _ready():
 	GameEvents.connect("game_over", Callable(self, "_activate_game_over"))
@@ -19,6 +20,8 @@ func _process(delta):
 
 func _activate_game_over():
 	current_scene_label.text = "Score %d" % Global.current_points
+	Global.high_score = max(Global.high_score, Global.current_points)
+	high_score_label.text = "Highscore %d" % Global.high_score
 	game_over_delay.start()
 
 
