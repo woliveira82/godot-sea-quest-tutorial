@@ -18,6 +18,11 @@ func _physics_process(delta):
 	global_position += velocity * SPEED * delta
 
 
+func _process(_delta):
+	if global_position.x > Global.SCREEN_BOUND_MAX_X or global_position.x < Global.SCREEN_BOUND_MIN_X:
+		queue_free()
+
+
 func flip_direction():
 	velocity = -velocity
 	sprite.flip_h = not sprite.flip_h
@@ -29,7 +34,3 @@ func _on_area_entered(area):
 		GameEvents.emit_signal("update_points")
 		area.queue_free()
 		queue_free()
-
-
-func _on_screen_exited():
-	queue_free()
