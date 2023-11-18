@@ -48,6 +48,7 @@ func _physics_process(_delta):
 		movement()
 	
 	clamp_position()
+	GameEvents.emit_signal("camera_follow_player", global_position.y)
 
 
 func process_movement_input():
