@@ -1,5 +1,7 @@
 extends Area2D
 
+const PlayerSurfaceSound = preload("res://player/player_surface.ogg")
+
 
 func _on_area_entered(area):
 	if area.is_in_group("Player"):
@@ -8,3 +10,5 @@ func _on_area_entered(area):
 			
 		else:
 			GameEvents.emit_signal("full_crew_oxygen_refuel")
+		
+		SoundManager.play_sound(PlayerSurfaceSound)

@@ -4,6 +4,7 @@ extends Area2D
 const SPEED = 50
 const MOVEMENT_FREQUENCY = 0.15
 const MOVEMENT_AMPLITUDE = 0.5
+const DeathSound = preload("res://enemies/shark/shark_death.ogg")
 
 var velocity = Vector2.RIGHT
 var random_offset = randf_range(0.0, 10.0)
@@ -38,6 +39,7 @@ func _on_area_entered(area):
 	if area.is_in_group("PlayerBullet"):
 		Global.current_points += point_value
 		GameEvents.emit_signal("update_points")
+		SoundManager.play_sound(DeathSound)
 		area.queue_free()
 		queue_free()
 	

@@ -20,6 +20,9 @@ const MIN_Y_POSITION = OXYGEN_REFUEL_Y_POSITION
 
 const BULLET_OFFSET = 7
 const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
+const ShootSound = preload("res://player/player_bullet/player_shoot.ogg")
+const DeathSound = preload("res://player/player_death.ogg")
+const OxygenFullSound = preload("res://user_interface/oxygen-bar/full_oxygen_alert.ogg")
 
 @onready var reload_timer = $ReloadTimer
 @onready var sprite = $AnimatedSprite2D
@@ -73,6 +76,8 @@ func process_shooting():
 		bullet_instance.global_position = global_position
 		get_tree().current_scene.add_child(bullet_instance)
 		
+		SoundManager.play_sound(ShootSound)
+		
 		if sprite.flip_h:
 			bullet_instance.flip_direction()
 			bullet_instance.global_position = global_position - Vector2(BULLET_OFFSET, 0)
@@ -94,6 +99,7 @@ func oxygen_refuel():
 		state = states.DEFAULT
 		sprite.play("default")
 		GameEvents.emit_signal("pause_enemies", false)
+		SoundManager.play_sound(OxygenFullSound)
 
 
 func death_when_oxygen_reaches_zero():
@@ -109,6 +115,7 @@ func death_when_refueling_while_full():
 func death():
 	GameEvents.emit_signal("game_over")
 	GameEvents.emit_signal("pause_enemies", true)
+	SoundManager.play_sound(DeathSound)
 
 
 func move_to_shore_line():
