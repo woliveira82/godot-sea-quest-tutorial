@@ -92,6 +92,7 @@ func oxygen_refuel():
 	Global.oxygen_level += OXYGEN_INCREASE_SPEED * get_process_delta_time()
 	if Global.oxygen_level > 99:
 		state = states.DEFAULT
+		sprite.play("default")
 		GameEvents.emit_signal("pause_enemies", false)
 
 
@@ -136,6 +137,7 @@ func remove_one_person():
 
 func _full_crew_oxygen_refuel():
 	state = states.PEOPLE_REFUEL
+	sprite.play("flash")
 	decrease_people_timer.start()
 	death_when_refueling_while_full()
 	GameEvents.emit_signal("pause_enemies", true)
@@ -143,6 +145,7 @@ func _full_crew_oxygen_refuel():
 
 func _less_people_oxygen_refuel():
 	state = states.OXYGEN_REFUEL
+	sprite.play("flash")
 	remove_one_person()
 	death_when_refueling_while_full()
 	GameEvents.emit_signal("pause_enemies", true)
