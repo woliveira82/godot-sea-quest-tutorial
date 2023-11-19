@@ -23,6 +23,9 @@ const Bullet = preload("res://player/player_bullet/player_bullet.tscn")
 const ShootSound = preload("res://player/player_bullet/player_shoot.ogg")
 const DeathSound = preload("res://player/player_death.ogg")
 const OxygenFullSound = preload("res://user_interface/oxygen-bar/full_oxygen_alert.ogg")
+const PIECE_COUNT = 10
+const ObjectPiece = preload("res://particles/object_piece/object_piece.tscn")
+const PlayerTexture = preload("res://player/player_pieces.png")
 
 @onready var reload_timer = $ReloadTimer
 @onready var sprite = $AnimatedSprite2D
@@ -116,6 +119,17 @@ func death():
 	GameEvents.emit_signal("game_over")
 	GameEvents.emit_signal("pause_enemies", true)
 	SoundManager.play_sound(DeathSound)
+	instance_death_pieces()
+
+func instance_death_pieces():
+	for i in range(PIECE_COUNT):
+		var piece_instance = ObjectPiece.instantiate()
+		piece_instance.texture = PlayerTexture
+		piece_instance.hframes = PIECE_COUNT
+		piece_instance.frame = i
+		
+		get_tree().current_scene.add_child(piece_instance)
+		piece_instance.global_position = global_position
 
 
 func move_to_shore_line():
