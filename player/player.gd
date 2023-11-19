@@ -2,11 +2,13 @@ extends Area2D
 
 var velocity = Vector2.ZERO
 var can_shoot = true
+var is_shooting = false
 
 enum states {DEFAULT, OXYGEN_REFUEL, PEOPLE_REFUEL}
 var state = states.DEFAULT
 
 const SPEED = Vector2(125, 90)
+const ROTATION_STRENGTH = 15
 
 const OXYGEN_DECREASE_SPEED = 2.5
 const OXYGEN_INCREASE_SPEED = 60.0
@@ -55,6 +57,7 @@ func _process(_delta):
 func _physics_process(_delta):
 	if state == states.DEFAULT:
 		movement()
+		rotate_to_movemnt()
 	
 	clamp_position()
 	GameEvents.emit_signal("camera_follow_player", global_position.y)
@@ -67,11 +70,21 @@ func process_movement_input():
 
 
 func direction_follows_input():
-	if velocity.x > 0:
-		sprite.flip_h = false
-	elif velocity.x < 0:
-		sprite.flip_h = true
+	if is_shooting or velocity.x == 0:
+		return
+	
+	sprite.flip_h = velocity.x < 0
 
+
+func rotate_to_movemnt():
+	var rotation_target = velocity.y * ROTATION_STRENGTH
+	
+	if velocity.y != 0 and sprite.flip_h:
+		rotation_target = -rotation_target
+	
+	var rotation_speed = 15 * get_physics_process_delta_time()
+	rotation_degrees = lerp(rotation_degrees, rotation_target, rotation_speed)
+	
 
 func process_shooting():
 	if Input.is_action_pressed("shoot") and can_shoot:
@@ -89,6 +102,8 @@ func process_shooting():
 		
 		reload_timer.start()
 		can_shoot = false
+	
+	is_shooting = Input.is_action_pressed("shoot")
 
 
 func lose_oxygen():
