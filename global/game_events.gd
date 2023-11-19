@@ -8,4 +8,5 @@ signal less_people_oxygen_refuel
 
 signal camera_follow_player(y_position)
 signal game_over
-signal pause_enemies
+signal pause_enemies(pause)
+signal kill_all_enemies

@@ -177,6 +177,7 @@ func _full_crew_oxygen_refuel():
 	decrease_people_timer.start()
 	death_when_refueling_while_full()
 	GameEvents.emit_signal("pause_enemies", true)
+	GameEvents.emit_signal("kill_all_enemies")
 
 
 func _less_people_oxygen_refuel():
