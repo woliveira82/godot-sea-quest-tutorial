@@ -9,6 +9,7 @@ var current_state = states.DEFAULT
 const SPEED = 25
 const SaveSound = preload("res://person/saving_person.ogg")
 const DeathSound = preload("res://person/person_death.ogg")
+const PointValuePopup = preload("res://user_interface/points_value_popup/point_value_popup.tscn")
 
 @onready var sprite = $AnimatedSprite2D
 
@@ -40,6 +41,7 @@ func _on_area_entered(area):
 		GameEvents.emit_signal("update_points")
 		
 		SoundManager.play_sound(SaveSound)
+		instance_point_value_popup()
 		
 		queue_free()
 	
@@ -47,6 +49,14 @@ func _on_area_entered(area):
 		SoundManager.play_sound(DeathSound)
 		area.queue_free()
 		queue_free()
+
+
+func instance_point_value_popup():
+	var point_value_popup_instance = PointValuePopup.instantiate()
+	
+	point_value_popup_instance.value = point_value
+	get_tree().current_scene.add_child(point_value_popup_instance)
+	point_value_popup_instance.global_position = global_position
 
 
 func _pause(pause):
